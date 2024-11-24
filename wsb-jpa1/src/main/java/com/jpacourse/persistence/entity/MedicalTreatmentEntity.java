@@ -2,13 +2,16 @@ package com.jpacourse.persistence.entity;
 
 import com.jpacourse.persistence.enums.TreatmentType;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +27,13 @@ public class MedicalTreatmentEntity {
 
 	@Enumerated(EnumType.STRING)
 	private TreatmentType type;
+
+	@OneToOne(
+			cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY,
+			optional = false
+	)
+	private VisitEntity visit; //relacja jednostronna od strony dziecka
 
 	public Long getId() {
 		return id;
@@ -47,6 +57,14 @@ public class MedicalTreatmentEntity {
 
 	public void setType(TreatmentType type) {
 		this.type = type;
+	}
+
+	public VisitEntity getVisit() {
+		return this.visit;
+	}
+
+	public void setVisit(VisitEntity visit) {
+		this.visit = visit;
 	}
 
 }

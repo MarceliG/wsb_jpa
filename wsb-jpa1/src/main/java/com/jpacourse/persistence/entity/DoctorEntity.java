@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -36,6 +37,9 @@ public class DoctorEntity {
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Specialization specialization;
+
+	@OneToOne
+	private AddressEntity address; // relacja dwustronna
 
 	public Long getId() {
 		return id;
@@ -91,6 +95,14 @@ public class DoctorEntity {
 
 	public void setSpecialization(Specialization specialization) {
 		this.specialization = specialization;
+	}
+
+	public AddressEntity getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(AddressEntity address) {
+		this.address = address;
 	}
 
 }
