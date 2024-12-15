@@ -1,7 +1,7 @@
 package com.jpacourse.persistance.dao;
 
-import com.jpacourse.persistence.dao.AddressDao;
-import com.jpacourse.persistence.entity.AddressEntity;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.jpacourse.persistence.dao.AddressDao;
+import com.jpacourse.persistence.entity.AddressEntity;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AddressDaoTest
-{
+public class AddressDaoTest {
     @Autowired
     private AddressDao addressDao;
 
@@ -45,7 +45,7 @@ public class AddressDaoTest
         // then
         assertThat(saved).isNotNull();
         assertThat(saved.getId()).isNotNull();
-        assertThat(addressDao.count()).isEqualTo(entitiesNumBefore+1);
+        assertThat(addressDao.count()).isEqualTo(entitiesNumBefore + 1);
     }
 
     @Transactional
@@ -70,6 +70,5 @@ public class AddressDaoTest
         final AddressEntity removed = addressDao.findOne(saved.getId());
         assertThat(removed).isNull();
     }
-
 
 }
