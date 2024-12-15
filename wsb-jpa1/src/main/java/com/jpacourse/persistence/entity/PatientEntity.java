@@ -41,14 +41,17 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 
+	@Column(nullable = false)
+	private Long pesel; // New field
+
 	// One-to-one relationship with AdressEntity (two-way relation)
 	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "address_id")
 	private AddressEntity address;
 
-	 // One-to-many relationship with VisitEntity
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<VisitEntity> visits = new ArrayList<>();
+	// One-to-many relationship with VisitEntity
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE, orphanRemoval = true)
+	private List<VisitEntity> visits = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -72,6 +75,14 @@ public class PatientEntity {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public Long getPesel() {
+		return pesel;
+	}
+
+	public void setPesel(Long pesel) {
+		this.pesel = pesel;
 	}
 
 	public String getTelephoneNumber() {
@@ -115,21 +126,21 @@ public class PatientEntity {
 	}
 
 	public List<VisitEntity> getVisits() {
-        return visits;
-    }
+		return visits;
+	}
 
-    public void setVisits(List<VisitEntity> visits) {
-        this.visits = visits;
-    }
+	public void setVisits(List<VisitEntity> visits) {
+		this.visits = visits;
+	}
 
-    public void addVisit(VisitEntity visit) {
-        this.visits.add(visit);
-        visit.setPatient(this);
-    }
+	public void addVisit(VisitEntity visit) {
+		this.visits.add(visit);
+		visit.setPatient(this);
+	}
 
-    public void removeVisit(VisitEntity visit) {
-        this.visits.remove(visit);
-        visit.setPatient(null);
-    }
+	public void removeVisit(VisitEntity visit) {
+		this.visits.remove(visit);
+		visit.setPatient(null);
+	}
 
 }
