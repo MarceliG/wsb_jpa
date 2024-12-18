@@ -42,7 +42,7 @@ public class PatientEntity {
 	private LocalDate dateOfBirth;
 
 	@Column(nullable = false)
-	private Long pesel; // New field
+	private String pesel; // New field
 
 	// One-to-one relationship with AdressEntity (two-way relation)
 	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY, optional = false)
@@ -77,11 +77,11 @@ public class PatientEntity {
 		this.lastName = lastName;
 	}
 
-	public Long getPesel() {
+	public String getPesel() {
 		return pesel;
 	}
 
-	public void setPesel(Long pesel) {
+	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
 

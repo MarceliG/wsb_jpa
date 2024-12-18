@@ -19,7 +19,7 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
     private EntityManager entityManager;
 
     @Override
-    public void addVisitToPatient(Long patientId, Long doctorId, LocalDateTime visitTime, String visitDescription) {
+    public VisitEntity addVisitToPatient(Long patientId, Long doctorId, LocalDateTime visitTime, String visitDescription) {
         // Find the patient by ID
         PatientEntity patient = entityManager.find(PatientEntity.class, patientId);
 
@@ -27,22 +27,30 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         DoctorEntity doctor = entityManager.find(DoctorEntity.class, doctorId);
 
         // Check if both the patient and doctor exist
-        if (patient != null && doctor != null) {
-            // Create a new visit entity
-            VisitEntity visit = new VisitEntity();
-            visit.setTime(visitTime);
-            visit.setDescription(visitDescription);
-            visit.setDoctor(doctor);
-            visit.setPatient(patient);
-
-            // Add the visit to the patient's list of visits (with cascading update)
-            patient.addVisit(visit);
-
-            // Perform the merge operation to update the patient with the new visit
-            entityManager.merge(patient);
-        } else {
+        if(patient == null || doctor == null) {
             // Handle the case where the patient or doctor is not found
             throw new IllegalArgumentException("Patient or doctor not found.");
         }
+
+        // Create a new visit entity
+        VisitEntity visit = new VisitEntity();
+        visit.setTime(visitTime);
+        visit.setDescription(visitDescription);
+        visit.setDoctor(doctor);
+        visit.setPatient(patient);
+
+        // Persist the visit explicitly
+        entityManager.persist(visit);
+
+        // Add the visit to the patient's list of visits (with cascading update)
+        patient.addVisit(visit);
+
+        // Perform the merge operation to update the patient with the new visit
+        entityManager.merge(patient);
+
+        // Flush the persistence context to ensure ID generation
+        entityManager.flush();
+
+        return visit;
     }
 }
