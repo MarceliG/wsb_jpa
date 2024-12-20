@@ -78,7 +78,7 @@ public class PatientServiceImplTest {
         assertThat(patientTO.getId()).isEqualTo(patientEntity.getId());
         assertThat(patientTO.getFirstName()).isEqualTo(patientEntity.getFirstName());
         assertThat(patientTO.getLastName()).isEqualTo(patientEntity.getLastName());
-        assertThat(patientTO.getPesel()).isEqualTo(patientEntity.getPesel());
+        assertThat(patientTO.getIsActive()).isEqualTo(patientEntity.getIsActive());
         assertThat(patientTO.getAddress()).isEqualTo(patientEntity.getAddress().getCity()); // Address field
         assertThat(patientTO.getVisits()).isNotEmpty(); // Assuming patient has visits
     }

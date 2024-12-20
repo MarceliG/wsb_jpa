@@ -7,7 +7,7 @@ public class PatientTO {
     private Long id;
     private String firstName;
     private String lastName;
-    private String pesel;
+    private Boolean isActive;
     private String address;
     private List<VisitTO> visits;
 
@@ -35,12 +35,12 @@ public class PatientTO {
         this.lastName = lastName;
     }
 
-    public String getPesel() {
-        return pesel;
+    public Boolean getIsActive() {
+        return isActive;
     }
 
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public String getAddress() {

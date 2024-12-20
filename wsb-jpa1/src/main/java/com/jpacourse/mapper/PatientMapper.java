@@ -19,7 +19,7 @@ public final class PatientMapper {
         patientTO.setId(patientEntity.getId());
         patientTO.setFirstName(patientEntity.getFirstName());
         patientTO.setLastName(patientEntity.getLastName());
-        patientTO.setPesel(patientEntity.getPesel());
+        patientTO.setIsActive(patientEntity.getIsActive());
         patientTO.setAddress(patientEntity.getAddress() != null ? patientEntity.getAddress().getCity() : null);
 
         // Map the visits list using toVisitTO
@@ -40,7 +40,7 @@ public final class PatientMapper {
         patientEntity.setId(patientTO.getId());
         patientEntity.setFirstName(patientTO.getFirstName());
         patientEntity.setLastName(patientTO.getLastName());
-        patientEntity.setPesel(patientTO.getPesel());
+        patientEntity.setIsActive(patientTO.getIsActive());
 
         return patientEntity;
     }

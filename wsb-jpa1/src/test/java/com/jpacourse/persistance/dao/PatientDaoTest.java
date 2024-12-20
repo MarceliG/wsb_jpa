@@ -50,7 +50,7 @@ public class PatientDaoTest {
         patient.setLastName("Doe");
         patient.setDateOfBirth(LocalDate.of(1999, 10, 4));
         patient.setPatientNumber("ABCDE");
-        patient.setPesel("58040674361");
+        patient.setIsActive(true);
         patient.setTelephoneNumber("666777666");
         patient.setAddress(patientAddress);
 
@@ -81,7 +81,7 @@ public class PatientDaoTest {
         patient.setLastName("Smith");
         patient.setDateOfBirth(LocalDate.of(1999, 10, 4));
         patient.setPatientNumber("BCDEF");
-        patient.setPesel("69091052859");
+        patient.setIsActive(false);
         patient.setTelephoneNumber("777666777");
         patient.setAddress(patientAddress);
         long entitiesNumBefore = patientDao.count();
@@ -110,7 +110,7 @@ public class PatientDaoTest {
         patient.setLastName("Doe");
         patient.setDateOfBirth(LocalDate.of(1999, 10, 4));
         patient.setPatientNumber("CDEFG");
-        patient.setPesel("65112352313");
+        patient.setIsActive(true);
         patient.setTelephoneNumber("321123123");
         patient.setAddress(doctorPatientAddress);
         final PatientEntity savedPatient = patientDao.save(patient);
@@ -148,7 +148,7 @@ public class PatientDaoTest {
         patient.setLastName("Stone");
         patient.setDateOfBirth(LocalDate.of(1999, 10, 4));
         patient.setPatientNumber("DEFGH");
-        patient.setPesel("56011531712");
+        patient.setIsActive(true);
         patient.setTelephoneNumber("123456789");
         patient.setAddress(patientAddress);
         
