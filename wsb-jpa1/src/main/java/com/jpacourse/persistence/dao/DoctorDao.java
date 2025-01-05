@@ -6,5 +6,8 @@ import com.jpacourse.persistence.entity.DoctorEntity;
 
 public interface DoctorDao extends Dao<DoctorEntity, Long> {
     List<DoctorEntity> findByPatientName(String pPatientName);
-
+    List<DoctorEntity> findVisitByPatientId(Long pId);
+    List<DoctorEntity> findWithMoreThanXVisits(Long visitCount);
+    // List<DoctorEntity> findByMinNumberOfVisits(Long visitCount);
+    
 }

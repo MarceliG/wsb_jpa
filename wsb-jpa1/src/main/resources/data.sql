@@ -11,10 +11,10 @@ INSERT INTO doctor (id, first_name, last_name, telephone_number, email, doctor_n
 VALUES
 (1, 'John', 'Doe', '123456789', 'johndoe@outlook.com', 'D1',  'DERMATOLOGIST' , 1),
 (2, 'Jane', 'Smith', '666666666', 'janesmith@gmail.com', 'D2',  'OCULIST' , 2),
-(3, 'Michael', 'Johnson', '777777777', 'michaelj@clinic.com', 'D3', 'CARDIOLOGIST', 3),
-(4, 'Emily', 'Davis', '888888888', 'emilyd@clinic.com', 'D4', 'ORTHOPEDIST', 4),
-(5, 'Robert', 'Kowalski', '999999999', 'robertk@clinic.com', 'D5', 'NEUROLOGIST', 5),
-(6, 'Laura', 'Martinez', '111222333', 'lauram@clinic.com', 'D6', 'PEDIATRICIAN', 6);
+(3, 'Michael', 'Johnson', '777777777', 'michaelj@clinic.com', 'D3', 'OCULIST', 3),
+(4, 'Emily', 'Davis', '888888888', 'emilyd@clinic.com', 'D4', 'SURGEON', 4),
+(5, 'Robert', 'Kowalski', '999999999', 'robertk@clinic.com', 'D5', 'GP', 5),
+(6, 'Laura', 'Martinez', '111222333', 'lauram@clinic.com', 'D6', 'DERMATOLOGIST', 6);
 
 INSERT INTO patient (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, is_active, address_id)
 VALUES 

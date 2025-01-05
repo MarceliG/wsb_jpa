@@ -39,13 +39,44 @@ public class DoctorDaoTest {
         final String pPatientName = "Smith";
 
         // when
-        final List<DoctorEntity> docs = doctorDao.findByPatientName(pPatientName);
+        final List<DoctorEntity> doctors = doctorDao.findByPatientName(pPatientName);
 
         // then
-        assertThat(docs).isNotNull();
-        assertThat(docs).isNotEmpty();
-        final Collection<VisitEntity> visits = docs.get(0).getVisits();
+        assertThat(doctors).isNotNull();
+        assertThat(doctors).isNotEmpty();
+        final Collection<VisitEntity> visits = doctors.get(0).getVisits();
         assertThat(visits).isNotNull();
         assertThat(visits).isNotEmpty();
+    }
+
+    @Transactional
+    @Test
+    public void testFindVisitByPatientId() {
+        // given
+        final Long patientId = 1L;  
+    
+        // when
+        final List<DoctorEntity> doctors = doctorDao.findVisitByPatientId(patientId);
+    
+        // then
+        assertThat(doctors).isNotNull();
+        assertThat(doctors).isNotEmpty();
+        
+        final Collection<VisitEntity> visits = doctors.get(0).getVisits();
+        assertThat(visits).isNotNull();
+        assertThat(visits).isNotEmpty();
+    }
+
+    @Transactional
+    @Test
+    public void testFindPatientsWithMoreThanXVisits() {
+        // given
+        final Long visitThreshold = 2L;  
+    
+        // when
+        final List<DoctorEntity> doctors = doctorDao.findWithMoreThanXVisits(visitThreshold);
+    
+        // then
+        assertThat(doctors).isNotNull();
     }
 }
