@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
 import com.jpacourse.persistence.entity.PatientEntity;
-import com.jpacourse.persistence.entity.VisitEntity;
 
 public final class PatientMapper {
 
@@ -24,7 +23,7 @@ public final class PatientMapper {
 
         // Map the visits list using toVisitTO
         List<VisitTO> visitTOs = patientEntity.getVisits().stream()
-                .map(PatientMapper::toVisitTO)
+                .map(VisitMapper::toVisitTO)
                 .collect(Collectors.toList());
         patientTO.setVisits(visitTOs);
 
@@ -45,21 +44,4 @@ public final class PatientMapper {
         return patientEntity;
     }
 
-    private static VisitTO toVisitTO(final VisitEntity visitEntity) {
-        if (visitEntity == null) {
-            return null;
-        }
-
-        VisitTO visitTO = new VisitTO();
-        visitTO.setTime(visitEntity.getTime());
-        visitTO.setDoctorName(visitEntity.getDoctor().getFirstName() + " " + visitEntity.getDoctor().getLastName());
-
-        // Map the TreatmentType enum values to strings
-        List<String> medicalTreatments = visitEntity.getTreatments().stream()
-                .map(treatment -> treatment.getType().toString()) // Convert TreatmentType to String
-                .collect(Collectors.toList());
-        visitTO.setMedicalTreatments(medicalTreatments);
-
-        return visitTO;
-    }
 }

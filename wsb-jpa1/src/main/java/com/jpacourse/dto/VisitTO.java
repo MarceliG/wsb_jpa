@@ -3,11 +3,13 @@ package com.jpacourse.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.jpacourse.persistence.enums.TreatmentType;
+
 public class VisitTO {
 
     private LocalDateTime time;
     private String doctorName;
-    private List<String> medicalTreatments;
+    private List<TreatmentType> medicalTreatments;
 
     public LocalDateTime getTime() {
         return time;
@@ -25,11 +27,11 @@ public class VisitTO {
         this.doctorName = doctorName;
     }
 
-    public List<String> getMedicalTreatments() {
+    public List<TreatmentType> getMedicalTreatments() {
         return medicalTreatments;
     }
 
-    public void setMedicalTreatments(List<String> medicalTreatments) {
+    public void setMedicalTreatments(List<TreatmentType> medicalTreatments) {
         this.medicalTreatments = medicalTreatments;
     }
 }

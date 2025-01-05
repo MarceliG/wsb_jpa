@@ -50,7 +50,7 @@ public class PatientEntity {
 	private AddressEntity address;
 
 	// One-to-many relationship with VisitEntity
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.MERGE, orphanRemoval = true)
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<VisitEntity> visits = new ArrayList<>();
 
 	public Long getId() {

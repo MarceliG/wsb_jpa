@@ -21,6 +21,8 @@ import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
 import com.jpacourse.persistence.enums.Specialization;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
@@ -125,12 +127,13 @@ public class PatientDaoTest {
         final DoctorEntity savedDoctor = doctorDao.save(doctor);
 
         // when
-        VisitEntity savedVisit = patientDao.addVisitToPatient(savedPatient.getId(), savedDoctor.getId(), LocalDateTime.now(), "Routine checkup");
+        patientDao.addVisitToPatient(savedPatient.getId(), savedDoctor.getId(), LocalDateTime.now(), "Routine checkup");
+        List<VisitEntity> listVisit = patient.getVisits();
 
         // then
-        assertThat(savedVisit).isNotNull();
-        assertThat(savedVisit.getId()).isNotNull();
-        assertThat(savedPatient.getVisits()).contains(savedVisit);
+        assertThat(listVisit.get(0)).isNotNull();
+        assertThat(listVisit.get(0).getId()).isNotNull();
+        assertThat(savedPatient.getVisits()).contains(listVisit.get(0));
     }
 
     @Test
