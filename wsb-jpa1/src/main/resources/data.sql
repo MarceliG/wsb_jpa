@@ -7,14 +7,14 @@ VALUES
 (5, 'Kraków', 'Floriańska 10', '2E', '31-019'),
 (6, 'Gdańsk', 'Długa 5', '2F', '80-831');
 
-INSERT INTO doctor (id, first_name, last_name, telephone_number, email, doctor_number, specialization, address_id)
+INSERT INTO doctor (id, first_name, last_name, telephone_number, email, doctor_number, specialization, address_id, version)
 VALUES
-(1, 'John', 'Doe', '123456789', 'johndoe@outlook.com', 'D1',  'DERMATOLOGIST' , 1),
-(2, 'Jane', 'Smith', '666666666', 'janesmith@gmail.com', 'D2',  'OCULIST' , 2),
-(3, 'Michael', 'Johnson', '777777777', 'michaelj@clinic.com', 'D3', 'OCULIST', 3),
-(4, 'Emily', 'Davis', '888888888', 'emilyd@clinic.com', 'D4', 'SURGEON', 4),
-(5, 'Robert', 'Kowalski', '999999999', 'robertk@clinic.com', 'D5', 'GP', 5),
-(6, 'Laura', 'Martinez', '111222333', 'lauram@clinic.com', 'D6', 'DERMATOLOGIST', 6);
+(1, 'John', 'Doe', '123456789', 'johndoe@outlook.com', 'D1',  'DERMATOLOGIST' , 1, 0),
+(2, 'Jane', 'Smith', '666666666', 'janesmith@gmail.com', 'D2',  'OCULIST' , 2, 0),
+(3, 'Michael', 'Johnson', '777777777', 'michaelj@clinic.com', 'D3', 'OCULIST', 3, 0),
+(4, 'Emily', 'Davis', '888888888', 'emilyd@clinic.com', 'D4', 'SURGEON', 4, 0),
+(5, 'Robert', 'Kowalski', '999999999', 'robertk@clinic.com', 'D5', 'GP', 5, 0),
+(6, 'Laura', 'Martinez', '111222333', 'lauram@clinic.com', 'D6', 'DERMATOLOGIST', 6, 0);
 
 INSERT INTO patient (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, is_active, address_id)
 VALUES 

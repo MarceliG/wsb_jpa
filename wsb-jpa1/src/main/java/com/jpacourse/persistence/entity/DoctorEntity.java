@@ -16,12 +16,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import com.jpacourse.persistence.enums.Specialization;
 
 @Entity
 @Table(name = "DOCTOR")
 public class DoctorEntity {
+
+	@Version
+    private Long version;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -135,5 +139,12 @@ public class DoctorEntity {
         this.visits.remove(visit);
         visit.setDoctor(null);
     }
+	
+    public Long getVersion() {
+        return version;
+    }
 
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 }

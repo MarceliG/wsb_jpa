@@ -79,4 +79,34 @@ public class DoctorDaoTest {
         // then
         assertThat(doctors).isNotNull();
     }
+
+    @Transactional
+    @Test
+    public void testFindByPatientPhoneNumber() {
+        // given
+        final String fragmentPhoneNumber = "66";  
+    
+        // when
+        final List<DoctorEntity> doctors = doctorDao.findByPatientPhoneNumber(fragmentPhoneNumber);
+    
+        // then
+        assertThat(doctors).isNotNull();
+    }
+
+
+    @Transactional
+    @Test
+    public void testOptimisticLocking() {
+        // given
+        final Long doctorId = 1L;
+        final String newFirstName = "John Updated";
+
+        // when
+        doctorDao.updateDoctor(doctorId, newFirstName);
+
+        // then
+        final List<DoctorEntity> updatedDoctor = doctorDao.findVisitByPatientId(doctorId);
+        assertThat(updatedDoctor.get(0).getFirstName()).isEqualTo(newFirstName);
+        assertThat(updatedDoctor.get(0).getVersion()).isGreaterThan(0);
+    }
 }

@@ -45,4 +45,26 @@ public class DoctorDaoImpl extends AbstractDao<DoctorEntity, Long> implements Do
             .setParameter("visitCount", pVisitCount)
             .getResultList();
     }
+
+    @Override
+    public List<DoctorEntity> findByPatientPhoneNumber(String phoneNumberFragment) {
+        return entityManager.createQuery(
+            " select doc from DoctorEntity doc " +
+            " join doc.visits visit " +
+            " join visit.patient patient " +
+            " where patient.telephoneNumber like :phoneNumberFragment", DoctorEntity.class)
+            .setParameter("phoneNumberFragment", "%" + phoneNumberFragment + "%")
+            .getResultList();
+    }
+
+    @Override
+    public void updateDoctor(Long doctorId, String newFirstName) {
+        DoctorEntity doctor = entityManager.find(DoctorEntity.class, doctorId);
+
+        // Wykonanie zmiany
+        doctor.setFirstName(newFirstName);
+
+        // Zapisanie zmian
+        entityManager.merge(doctor);  // merge automatycznie obsługuje wersjonowanie
+    }
 }
