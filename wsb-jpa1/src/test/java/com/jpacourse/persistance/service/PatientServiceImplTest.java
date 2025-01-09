@@ -1,4 +1,4 @@
-package com.jpacourse.persistance.dao;
+package com.jpacourse.persistance.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
 import com.jpacourse.persistence.dao.PatientDao;
-import com.jpacourse.persistence.dao.VisitDao;
 import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.enums.TreatmentType;
 import com.jpacourse.service.PatientService;
