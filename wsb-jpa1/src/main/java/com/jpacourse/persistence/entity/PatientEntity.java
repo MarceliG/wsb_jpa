@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "PATIENT")
@@ -23,6 +24,9 @@ public class PatientEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Version
+    private Long version;
 
 	@Column(nullable = false)
 	private String firstName;
@@ -143,4 +147,11 @@ public class PatientEntity {
 		visit.setPatient(null);
 	}
 
+	public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 }

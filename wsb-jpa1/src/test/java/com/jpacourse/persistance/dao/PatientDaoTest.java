@@ -21,6 +21,7 @@ import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
 import com.jpacourse.persistence.enums.Specialization;
 
+import java.util.Collection;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -166,6 +167,75 @@ public class PatientDaoTest {
         // then
         final PatientEntity removed = patientDao.findOne(newSaved.getId());
         assertThat(removed).isNull();
+    }
+
+    @Test
+    public void testShouldfindPatientByPatientName() {
+        // given
+        final String patientName = "Smith";
+
+        final List<PatientEntity> patients = patientDao.findByPatientName(patientName);
+
+        // then
+        assertThat(patients).isNotNull();
+        assertThat(patients).isNotEmpty();
+
+        for (PatientEntity patient : patients) {
+            assertThat(patient).isNotNull();
+            assertThat(patient.getLastName()).isEqualTo(patientName);
+        }
+    }
+
+    @Test
+    public void testFindPatientsWithMoreThanXVisits() {
+        // given
+        final Long visitCount = 2L;
+
+        // when
+        final List<PatientEntity> patients = patientDao.findWithMoreThanXVisits(visitCount);
+
+        // then
+        assertThat(patients).isNotNull();
+        assertThat(patients).isNotEmpty();
+
+        final Collection<VisitEntity> visits = patients.get(0).getVisits();
+        assertThat(visits.size()).isGreaterThanOrEqualTo(visitCount.intValue());
+    }
+
+    @Test
+    public void testFindByPatientPhoneNumber() {
+        // given
+        final String fragmentPhoneNumber = "66"; 
+
+        // when
+        final List<PatientEntity> patients = patientDao.findByPatientPhoneNumber(fragmentPhoneNumber);
+
+        // then
+        assertThat(patients).isNotNull();
+        assertThat(patients).isNotEmpty();
+
+        for (PatientEntity patient : patients) {
+            assertThat(patient).isNotNull();
+            assertThat(patient.getTelephoneNumber())
+                .isNotNull()
+                .contains(fragmentPhoneNumber);
+        }
+    }
+
+    @Test
+    @Transactional
+    public void testOptimisticLocking() {
+        // given
+        final Long patientId = 1L;
+        final String newFirstName = "John Updated";
+
+        // when
+        patientDao.updatPatient(patientId, newFirstName);
+
+        // then
+        final PatientEntity updatedPatient = patientDao.findOne(patientId);
+        assertThat(updatedPatient.getFirstName()).isEqualTo(newFirstName);
+        assertThat(updatedPatient.getVersion()).isGreaterThan(0);
     }
 
     /* Help */

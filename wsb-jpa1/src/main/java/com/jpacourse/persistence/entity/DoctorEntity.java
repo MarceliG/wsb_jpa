@@ -135,5 +135,4 @@ public class DoctorEntity {
         this.visits.remove(visit);
         visit.setDoctor(null);
     }
-
 }
