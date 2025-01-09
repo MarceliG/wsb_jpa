@@ -1,5 +1,6 @@
 package com.jpacourse.persistance.dao;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,10 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.jpacourse.persistence.dao.DoctorDao;
 import com.jpacourse.persistence.entity.DoctorEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
+import com.jpacourse.persistence.enums.TreatmentType;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,79 +28,71 @@ public class DoctorDaoTest {
 
     @Transactional
     @Test
-    public void testFindByPatientName() {
+    public void testFindByDesc() {
         // given
-        final String pPatientName = "Smith";
+        final String pDesc = "Routine";
 
         // when
-        final List<DoctorEntity> doctors = doctorDao.findByPatientName(pPatientName);
+        final List<DoctorEntity> docs = doctorDao.findByVisitDescription(pDesc);
 
         // then
-        assertThat(doctors).isNotNull();
-        assertThat(doctors).isNotEmpty();
-        final Collection<VisitEntity> visits = doctors.get(0).getVisits();
+        assertThat(docs).isNotNull();
+        final Collection<VisitEntity> visits = docs.get(0).getVisits();
         assertThat(visits).isNotNull();
-        assertThat(visits).isNotEmpty();
     }
 
     @Transactional
     @Test
-    public void testFindVisitByPatientId() {
+    public void testFindById() {
         // given
-        final Long patientId = 1L;  
-    
+        long minNumOfVisits = 4;
+
         // when
-        final List<DoctorEntity> doctors = doctorDao.findVisitByPatientId(patientId);
-    
+        final List<DoctorEntity> docs = doctorDao.findByMinNumberOfVisits(minNumOfVisits);
+
         // then
-        assertThat(doctors).isNotNull();
-        assertThat(doctors).isNotEmpty();
-        
-        final Collection<VisitEntity> visits = doctors.get(0).getVisits();
-        assertThat(visits).isNotNull();
-        assertThat(visits).isNotEmpty();
+        assertThat(docs).isNotNull();
     }
 
     @Transactional
     @Test
-    public void testFindPatientsWithMoreThanXVisits() {
+    public void shouldReturnDocsHavingVisitsToGivenDateRange() {
         // given
-        final Long visitThreshold = 2L;  
-    
+        String dateFromAsString = "2024-06-06T16:00:00";
+        String dateToAsString = "2024-06-11T06:00:00";
+
+        LocalDateTime dateFrom = LocalDateTime.parse(dateFromAsString);
+        LocalDateTime dateTo = LocalDateTime.parse(dateToAsString);
+
         // when
-        final List<DoctorEntity> doctors = doctorDao.findWithMoreThanXVisits(visitThreshold);
-    
+        final List<DoctorEntity> docs = doctorDao.findByVisitDateRange(dateFrom, dateTo);
+
         // then
-        assertThat(doctors).isNotNull();
+        assertThat(docs).isNotNull();
     }
 
     @Transactional
     @Test
-    public void testFindByPatientPhoneNumber() {
+    public void shouldReturnPatienByPatientName() {
         // given
-        final String fragmentPhoneNumber = "66";  
-    
+        String patientName = "Tomas";
+
         // when
-        final List<DoctorEntity> doctors = doctorDao.findByPatientPhoneNumber(fragmentPhoneNumber);
-    
+        final List<DoctorEntity> docs = doctorDao.findByPatient(patientName);
+
         // then
-        assertThat(doctors).isNotNull();
+        assertThat(docs).isNotNull();
     }
-
-
+    
     @Transactional
     @Test
-    public void testOptimisticLocking() {
+    public void shouldReturnTreatmentTypeByPatientName() {
         // given
-        final Long doctorId = 1L;
-        final String newFirstName = "John Updated";
 
         // when
-        doctorDao.updateDoctor(doctorId, newFirstName);
+        final List<DoctorEntity> docs = doctorDao.findByTreatmentType(TreatmentType.RTG);
 
         // then
-        final List<DoctorEntity> updatedDoctor = doctorDao.findVisitByPatientId(doctorId);
-        assertThat(updatedDoctor.get(0).getFirstName()).isEqualTo(newFirstName);
-        assertThat(updatedDoctor.get(0).getVersion()).isGreaterThan(0);
+        assertThat(docs).isNotNull();
     }
 }

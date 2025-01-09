@@ -1,6 +1,7 @@
 package com.jpacourse.persistence.dao.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,5 +46,47 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         entityManager.merge(patient);
 
         return visit;
+    }
+
+    @Override
+    public List<PatientEntity> findByPatientName(String patientName) {
+        return entityManager.createQuery(
+            "SELECT pat FROM PatientEntity pat WHERE pat.lastName =: patientName",
+            PatientEntity.class
+        ).setParameter("patientName", patientName)
+        .getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> findWithMoreThanXVisits(Long visitCount) {
+        return entityManager.createQuery(
+            "SELECT pat FROM PatientEntity pat " +
+            " JOIN pat.visits vis " +
+            "GROUP BY pat " +
+            "HAVING count(vis) >= :visitCount",
+            PatientEntity.class
+        ).setParameter("visitCount", visitCount)
+        .getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> findByPatientPhoneNumber(String phoneNumberFragment) {
+        return entityManager.createQuery(
+            "SELECT pat FROM PatientEntity pat WHERE pat.telephoneNumber like :phoneNumberFragment",
+            PatientEntity.class
+        ).setParameter("phoneNumberFragment", "%" + phoneNumberFragment + "%")
+        .getResultList();
+    }
+
+    @Override
+    public void updatPatient(Long patientId, String newFirstName) {
+        PatientEntity patient = entityManager.find(PatientEntity.class, patientId);
+
+        // Wykonanie zmiany
+        patient.setFirstName(newFirstName);
+
+        // Zapisanie zmian
+        entityManager.merge(patient);
+        entityManager.flush();
     }
 }
